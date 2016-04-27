@@ -22,7 +22,7 @@ FILE* fichier = NULL;
 
 <LETTRE>[[:alnum:]]|[[:space:]]		{fputs(&yytext[0], fichier);}
 <LETTRE>"à"				{fputs("à",fichier);}
-<LETTRE>"."				{fputs("&period;",fichier);}
+<LETTRE>"."				{fputs(".",fichier);}
 <LETTRE>["]				{BEGIN DIV;}
 
 <BALISE>[[:alpha:]]|[[:space:]]|["]|"="|"."|\n	{fputs(&yytext[0], fichier);}
@@ -46,10 +46,8 @@ FILE* fichier = NULL;
 <BALISE_OR_FIN>"}"				{fputs("</>",fichier);BEGIN INITIAL;}
 
 [[:alnum:]]|[[:space:]]		{fputs(&yytext[0], fichier);}
-"à"				{fputs("à",fichier);}
-"."				{fputs("&period;",fichier);}
 ["]"}"				{fputs("</>",fichier);}
-"{"|["]|"}"				;
+"{"|["]|"}"|"."				;
 
 
 
@@ -61,6 +59,7 @@ int main (void){
 	fputs("<!DOCTYPE html> \n ", fichier);
 	fputs("<html> \n ", fichier);
 	fputs("<head> \n ", fichier);
+	fputs("<meta charset=utf-8> \n",fichier);
 	fputs("</head> \n ", fichier);
 	fputs("<body> \n ", fichier);
 	
