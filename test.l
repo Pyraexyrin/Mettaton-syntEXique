@@ -23,7 +23,7 @@ FILE* fichier = NULL;
 
 int main (void){
 	
-	fichier = fopen("test_2.txt", "r+");
+	fichier = fopen("test_2.html", "r+");
 	fputs("<!DOCTYPE html> \n ", fichier);
 	fputs("<html> \n ", fichier);
 	fputs("<head> \n ", fichier);
