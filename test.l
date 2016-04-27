@@ -37,7 +37,7 @@ FILE* fichier = NULL;
 
 int main (void){
 	
-	fichier = fopen("test_2.html", "r+");
+	fichier = fopen("test_2.html", "w");
 	fputs("<!DOCTYPE html> \n ", fichier);
 	fputs("<html> \n ", fichier);
 	fputs("<head> \n ", fichier);
