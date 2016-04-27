@@ -10,4 +10,4 @@ lignes de compilation pour tester mon code (Manon):
   flex test.l
   gcc lex.yy.c -o test
   ./test < test.txt
-  cat test_2.txt
+  cat test_2.html
