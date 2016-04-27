@@ -10,6 +10,8 @@ FILE* fichier = NULL;
 %x LETTRE
 %x BALISE
 %x BALISE_FIN
+%x BALISE_OR
+%x BALISE_OR_FIN
 
 
 %%
@@ -31,6 +33,24 @@ FILE* fichier = NULL;
 <BALISE_FIN>["]|"{"			;
 <BALISE_FIN>[[:alpha:]]			{fputs(&yytext[0],fichier);}
 <BALISE_FIN>"}"				{fputs("</>",fichier);BEGIN DIV;}
+
+[[:alpha:]]"["			{BEGIN BALISE_OR;fputs("<", fichier);fputs(&yytext[0], fichier);}
+
+<BALISE_OR>[[:alpha:]]|[[:space:]]|["]|"="|"."|\n	{fputs(&yytext[0], fichier);}
+<BALISE_OR>"/"						{fputs(&yytext[0], fichier);fputs(">", fichier);BEGIN DIV;}
+<BALISE_OR>"["						{fputs(" ", fichier);}
+<BALISE_OR>"]"						{fputs(">", fichier);BEGIN BALISE_OR_FIN;}
+
+<BALISE_OR_FIN>["]|"{"			;
+<BALISE_OR_FIN>[[:alpha:]]			{fputs(&yytext[0],fichier);BEGIN INITIAL;}
+<BALISE_OR_FIN>"}"				{fputs("</>",fichier);BEGIN INITIAL;}
+
+[[:alnum:]]|[[:space:]]		{fputs(&yytext[0], fichier);}
+"à"				{fputs("à",fichier);}
+"."				{fputs("&period;",fichier);}
+["]"}"				{fputs("</>",fichier);}
+"{"|["]|"}"				;
+
 
 
 %%
