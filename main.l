@@ -58,11 +58,11 @@ int under_t=0;
 
 int main (void){
 	
-	fichier = fopen("test_2.html", "w");		//test_2.xml sinon
+	fichier = fopen("test_2.xml", "w");		//sinon test_2.html
 	fputs("<!DOCTYPE html> \n ", fichier);
+	//fputs("<meta charset=utf-8> \n",fichier);
 	fputs("<html> \n ", fichier);
 	fputs("<head> \n ", fichier);
-	fputs("<meta charset=utf-8> \n",fichier);
 	fputs("</head> \n ", fichier);
 	fputs("<body> \n ", fichier);
 	
