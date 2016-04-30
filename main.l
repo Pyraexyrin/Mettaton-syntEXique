@@ -5,6 +5,10 @@
 int fileno(FILE *stream);
 FILE* fichier = NULL;
 
+char label[20];
+char label2[10];
+char * caract;
+
 int under_t=0;
 
 %}
@@ -17,25 +21,25 @@ int under_t=0;
 
 %%
 "{"				{fputs("<", fichier);BEGIN BALISE;}
-[[:alpha:]]			{fputs("<", fichier);fputs(&yytext[0],fichier);BEGIN BALISE;}
+[[:alpha:]]			{fputs("<", fichier);caract=&yytext[0];strcat(label,caract);fputs(caract,fichier);BEGIN BALISE;}
 "}"				;
 
-<BALISE>[[:alpha:]]		{fputs(&yytext[0], fichier);}
+<BALISE>[[:alpha:]]		{caract=&yytext[0];strcat(label,caract);fputs(caract, fichier);}
 <BALISE>"{"			{fputs(">", fichier);BEGIN TREE;}
 <BALISE>"["			{fputs(" ",fichier);BEGIN ATTRIBUTE;}
 
 <TREE>["]			{BEGIN TEXT;}
 <TREE>"{"			;
 <TREE>[[:space:]]		{fputs(" ",fichier);}
-<TREE>[[:alpha:]]		{fputs("<", fichier);fputs(&yytext[0],fichier);under_t=1;BEGIN UNDER_TREE;}
-<TREE>"}"			{fputs("</>", fichier);BEGIN INITIAL;}
+<TREE>[[:alpha:]]		{fputs("<", fichier);caract=&yytext[0];strcat(label2,caract);fputs(caract,fichier);under_t=1;BEGIN UNDER_TREE;}
+<TREE>"}"			{fputs("</", fichier);fputs(label, fichier);fputs(">", fichier);for(int i=0;i<sizeof(label);i++){label[i]=NULL;}BEGIN INITIAL;}
 <TREE>"["			{BEGIN ATTRIBUTE;}
 
-<UNDER_TREE>[[:alpha:]]		{fputs(&yytext[0], fichier);}
+<UNDER_TREE>[[:alpha:]]		{caract=&yytext[0];strcat(label2,caract);fputs(caract, fichier);}
 <UNDER_TREE>"["			{fputs(" ",fichier);BEGIN ATTRIBUTE;}
 <UNDER_TREE>"{"			;
 <UNDER_TREE>["]			{BEGIN TEXT;}
-<UNDER_TREE>"}"			{fputs("</>", fichier);under_t=0;BEGIN TREE;}
+<UNDER_TREE>"}"			{fputs("</", fichier);fputs(label2, fichier);fputs(">", fichier);under_t=0;for(int i=0;i<sizeof(label2);i++){label2[i]=NULL;}BEGIN TREE;}
 <UNDER_TREE>"/"			{fputs("/>", fichier);under_t=0;BEGIN TREE;}
 
 <TEXT>[[:alnum:]]|[[:space:]]|"."	{fputs(&yytext[0], fichier);}
@@ -70,3 +74,5 @@ int main (void){
 	
 	return 0;
  }
+
+
