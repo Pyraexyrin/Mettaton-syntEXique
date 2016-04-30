@@ -58,7 +58,7 @@ int under_t=0;
 
 int main (void){
 	
-	fichier = fopen("test_2.html", "w");
+	fichier = fopen("test_2.html", "w");		//test_2.xml sinon
 	fputs("<!DOCTYPE html> \n ", fichier);
 	fputs("<html> \n ", fichier);
 	fputs("<head> \n ", fichier);
