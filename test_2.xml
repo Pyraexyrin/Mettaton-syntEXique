@@ -1,0 +1,10 @@
+<!DOCTYPE html> 
+ <html> 
+ <head> 
+ </head> 
+ <body> 
+ <div>     Ceci est un lien qui vous conduira
+    au  <a href="www.labri.fr" id="lien">LaBRI</a> 
+    à Bordeaux.     <br/>    </div></body> 
+ </html> 
+ 
