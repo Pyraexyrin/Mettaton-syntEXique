@@ -10,7 +10,7 @@ lignes de compilation pour tester mon code (Manon):
   flex main.l
   gcc lex.yy.c -o test
   ./test < test.txt
-  cat test_2.html
+  cat test_2.xml
 
 
 Le fichier test.l marche mais il ne suis pas le code du prof, le bon fichier est main.l
