@@ -1,0 +1,4 @@
+{{div{"contenu1"} div{"contenu2"}}
+	a[attr3="val3"]{"contenu3"}
+	{{} {p{"contenu4"}}
+} h1{"xMlcontent5"}}
