@@ -43,10 +43,12 @@ int under_t=0;
 <UNDER_TREE>"/"			{fputs("/>", fichier);under_t=0;BEGIN TREE;}
 
 <TEXT>[[:alnum:]]|[[:space:]]|"."	{fputs(&yytext[0], fichier);}
+<TEXT>"à"|"é"|"è"|"ù"|"ô"|"â"|"ê"	{fputs(&yytext[0], fichier);}
 <TEXT>["]				{if(under_t==1){BEGIN UNDER_TREE;}
 					 else{BEGIN TREE;}}
 
 <ATTRIBUTE>[[:alpha:]]|["]|"="|"."|[[:space:]]	{fputs(&yytext[0], fichier);}
+<ATTRIBUTE>"à"|"é"|"è"|"ù"|"ô"|"â"|"ê"		{fputs(&yytext[0], fichier);}
 <ATTRIBUTE>"]"					{fputs(">", fichier);
 						 if(under_t==1){BEGIN UNDER_TREE;}
 						 else{BEGIN TREE;}}
